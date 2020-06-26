@@ -1,71 +1,91 @@
-# RippleNet
-A Tensorflow 2.x implementation of RippleNet
+# About
 
-This repository is the implementation of RippleNet ([arXiv](https://arxiv.org/abs/1803.03467)):
-> RippleNet: Propagating User Preferences on the Knowledge Graph for Recommender Systems  
-Hongwei Wang, Fuzheng Zhang, Jialin Wang, Miao Zhao, Wenjie Li, Xing Xie, Minyi Guo  
-The 27th ACM International Conference on Information and Knowledge Management (CIKM 2018)
+This repository is a Tensorflow 2 implementation of RippleNet ([arXiv](https://arxiv.org/abs/1803.03467)):
+> **RippleNet: Propagating User Preferences on the Knowledge Graph for Recommender Systems**, Hongwei Wang, Fuzheng Zhang, Jialin Wang, Miao Zhao, Wenjie Li, Xing Xie, Minyi Guo, The 27th ACM International Conference on Information and Knowledge Management (CIKM 2018)
 
 ![](framework.jpg)
 
-RippleNet is a deep end-to-end model that naturally incorporates the knowledge graph into recommender systems.
+>RippleNet is a deep end-to-end model that naturally incorporates the knowledge graph into recommender systems.
 Ripple Network overcomes the limitations of existing embedding-based and path-based KG-aware recommendation methods by introducing preference propagation, which automatically propagates users' potential preferences and explores their hierarchical interests in the KG.
 
-### Files in the folder
+You can find other implementations below:
 
-- `data/`
-  - `book/`
-    - `BX-Book-Ratings.csv`: raw rating file of Book-Crossing dataset;
-    - `item_index2entity_id.txt`: the mapping from item indices in the raw rating file to entity IDs in the KG;
-    - `kg.txt`: knowledge graph file;
-  - `movie/`
-    - `item_index2entity_id.txt`: the mapping from item indices in the raw rating file to entity IDs in the KG;
-    - `kg_part1.txt` and `kg_part2.txt`: knowledge graph file;
-    - `ratrings.dat`: raw rating file of MovieLens-1M;
-- `model/`: implementations of RippleNet.
-- `tools/`: load data and model metrics.
+- [Authors' official Tensorflow 1.x implementation of RippleNet by @hwwang55](https://github.com/hwwang55/RippleNet)
+- [A Tensorflow 2 implementation of RippleNet by @SSSxCCC](https://github.com/SSSxCCC/Recommender-System)
+- [A PyTorch implementation of RippleNet by @qibinc](https://github.com/qibinc/RippleNet-PyTorch)
 
-### Setup your Python runtime
+## Environment Setup
+
+Tested using Python 3.7 and Tensorflow 2.2.0. You should setup the following virtual environment and install the required packages:
 
 ```
-$ python 3.7 -m venv venv
-$ source venv/bin/active
-$ pip install -r requirements.txt
+python3 -m venv venv
+source venv/bin/active
+pip install -r requirements.txt
+```
+## Data
+
+- Download the data file:
+- Unzip it and put the data folder in the project root, your folder structure should look like the following
+
+```
+.
+├── LICENSE
+├── README.md
+├── data
+│   ├── book
+│   │   ├── book_ratings.csv
+│   │   ├── item_index2entity_id_rehashed.txt
+│   │   └── kg_rehashed.txt
+│   └── movie
+│       ├── item_index2entity_id_rehashed.txt
+│       ├── kg_part1_rehashed.txt
+│       ├── kg_part2_rehashed.txt
+│       └── movie_ratings.dat
+├── framework.jpg
+├── main.py
+├── model
+│   ├── __init__.py
+│   ├── layers.py
+│   ├── model.py
+│   └── ripple_net.py
+├── preprocess.py
+├── requirements.txt
+└── tools
+    ├── __init__.py
+    ├── load_data.py
+    └── metrics.py
+
 ```
 
-### Download dataset
-
-**please download the `data` file first**
-
-- first of all, clone `datafile branch` [here](https://github.com/trekrollercoaster/RippleNet/tree/datafile) .Use command to download `data` file:
-    ```
-    $ git clone -b datafile https://github.com/trekrollercoaster/RippleNet.git
-    ```
-- finally put `data` file to your `RippleNet` project root path like above.
-
-### Required packages
-The code has been tested running under Python 3.7, with the following packages installed (along with their dependencies):
-- tensorflow == 2.2.0
-- numpy == 1.18.5
+- `model/`: implementation of RippleNet
+- `tools/`: data loader and model metrics
+- `data/book/`
+  - `book_ratings.csv`: raw rating file of Book-Crossing dataset
+  - `item_index2entity_id.txt`: the mapping from item indices in the raw rating file to entity IDs in the KG
+  - `kg.txt`: book knowledge graph file
+- `data/movie/` 
+  - `item_index2entity_id.txt`: the mapping from item indices in the raw rating file to entity IDs in the KG
+  - `kg_part1.txt` and `kg_part2.txt`: movie knowledge graph files
+  - `movie_ratings.dat`: raw rating file of MovieLens-1M;
 
 
-### Running the code
+## Run
+
+for the movie dataset (for the book dataset, replace movie with book):
+
+- run `python preprocess.py --dataset movie` - this will generate two new files `kg_final.txt` and `ratings_final.txt`
+- run `python main.py --dataset movie` - this will start the training, create a `logs` folder, and do a final evaluation
+
+By default, the model is trained using 10 epochs, which takes about 25 minutes on a MacBook Pro (3.1 GHz Dual-Core Intel Core i5 with 8G RAM). One sample evaluation result is as follows:
+
 ```
-$ cd RippleNet
-$ mkdir logs
-$ python preprocess.py --dataset movie (or --dataset book)
-$ python main.py --dataset movie (note: use -h to check optional arguments)
-```
-
-### View tensorboard
-```
-$ cd RippleNet
-$ tensorboard --logdir=logs/movie_%date% (or --logdir=logs/book_%date%)
+evaluate model ...
+148/148 [==============================] - 13s 88ms/step - loss: 0.3811 - binary_accuracy: 0.8464 - auc: 0.9221 - f1: 0.8486 - precision: 0.8399 - recall: 0.8577
+- loss: 0.3810572326183319 - binary_accuracy: 0.8464029431343079 - auc: 0.9220795631408691 - f1: 0.848639190196991 - precision: 0.8399457931518555 - recall: 0.8577455878257751
 ```
 
-### Reference
-> A tensorflow 1.x re-implementation of RippleNet by hwwang55. is [here](https://github.com/hwwang55/RippleNet).
-> 
-> A PyTorch re-implementation of RippleNet by Qibin Chen et al. is [here](https://github.com/qibinc/RippleNet-PyTorch).
->
-> A tensorflow 2.x re-implementation of RippleNet by SSSxCCC. is [here](https://github.com/SSSxCCC/Recommender-System).
+
+You can use Tensorboard to check the training results (in real time or after training) by running `tensorboard --logdir=logs` and then point your browser to http://localhost:6006/
+
+<img width="848" alt="Screen Shot 2020-06-26 at 11 18 30 AM" src="https://user-images.githubusercontent.com/595772/85873541-48f63700-b79f-11ea-9b29-2b9d4bf9a984.png">

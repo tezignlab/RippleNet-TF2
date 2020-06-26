@@ -100,7 +100,7 @@ class LoadData:
                 """
                 if the current ripple set of the given user is empty, we simply copy the ripple set of the last hop here
                 this won't happen for h = 0, because only the items that appear in the KG have been selected
-                this only happens on 154 users in Book-Crossing dataset (since both BX dataset and the KG are sparse)
+                this only happens on 154 users in Book-Crossing dataset (since both book dataset and the KG are sparse)
                 """
                 if len(memories_h) == 0:
                     ripple_set[user].append(ripple_set[user][-1])

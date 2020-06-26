@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 
-RATING_FILE_NAME = dict({'movie': 'ratings.dat', 'book': 'BX-Book-Ratings.csv', 'news': 'ratings.txt'})
+RATING_FILE_NAME = dict({'movie': 'movie_ratings.dat', 'book': 'book_ratings.csv', 'news': 'ratings.txt'})
 SEP = dict({'movie': '::', 'book': ';', 'news': '\t'})
 THRESHOLD = dict({'movie': 4, 'book': 0, 'news': 0})
 SKIP_LINE = dict({'movie': 0, 'book': 1, 'news': 0})
@@ -33,7 +33,7 @@ def convert_rating():
             continue
         array = line.strip().split(SEP[DATASET])
 
-        # remove prefix and suffix quotation marks for BX dataset
+        # remove prefix and suffix quotation marks for book rating dataset
         if DATASET == 'book':
             array = list(map(lambda x: x[1:-1], array))
 
