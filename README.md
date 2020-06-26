@@ -43,7 +43,7 @@ $ pip install -r requirements.txt
 
 ### Required packages
 The code has been tested running under Python 3.7, with the following packages installed (along with their dependencies):
-- tensorflow-gpu == 2.2.0
+- tensorflow == 2.2.0
 - numpy == 1.18.5
 
 
@@ -60,3 +60,10 @@ $ python main.py --dataset movie (note: use -h to check optional arguments)
 $ cd RippleNet
 $ tensorboard --logdir=logs/movie_%date% (or --logdir=logs/book_%date%)
 ```
+
+### Reference
+> A tensorflow 1.x re-implementation of RippleNet by hwwang55. is [here](https://github.com/hwwang55/RippleNet).
+> 
+> A PyTorch re-implementation of RippleNet by Qibin Chen et al. is [here](https://github.com/qibinc/RippleNet-PyTorch).
+>
+> A tensorflow 2.x re-implementation of RippleNet by SSSxCCC. is [here](https://github.com/SSSxCCC/Recommender-System).
