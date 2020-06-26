@@ -35,15 +35,17 @@ $ pip install -r requirements.txt
 
 ### Download dataset
 
-**please download the `data` file from TAI platform**
+**please download the `data` file first**
 
-- first of all, login TAI platform file system [TAI](https://ai.tezign.com/web-filesystem)
-- and then download [data.zip](https://ai.tezign.com/web-filesystem?path=/data/Models/RippleNet-dataset/data.zip) to your project root path like above.
-- finally, use command `$ unzip data.zip` to unzip the data.zip file.
+- first of all, clone `datafile branch` [here](https://github.com/trekrollercoaster/RippleNet/tree/datafile) .Use command to download `data` file:
+    ```
+    $ git clone -b datafile https://github.com/trekrollercoaster/RippleNet.git
+    ```
+- finally put `data` file to your `RippleNet` project root path like above.
 
 ### Required packages
 The code has been tested running under Python 3.7, with the following packages installed (along with their dependencies):
-- tensorflow-gpu == 2.2.0
+- tensorflow == 2.2.0
 - numpy == 1.18.5
 
 
@@ -60,3 +62,10 @@ $ python main.py --dataset movie (note: use -h to check optional arguments)
 $ cd RippleNet
 $ tensorboard --logdir=logs/movie_%date% (or --logdir=logs/book_%date%)
 ```
+
+### Reference
+> A tensorflow 1.x re-implementation of RippleNet by hwwang55. is [here](https://github.com/hwwang55/RippleNet).
+> 
+> A PyTorch re-implementation of RippleNet by Qibin Chen et al. is [here](https://github.com/qibinc/RippleNet-PyTorch).
+>
+> A tensorflow 2.x re-implementation of RippleNet by SSSxCCC. is [here](https://github.com/SSSxCCC/Recommender-System).
