@@ -37,7 +37,7 @@ $ pip install -r requirements.txt
 
 **please download the `data` file first**
 
-- first of all, clone `datafile` branch [datafile branch](https://github.com/trekrollercoaster/RippleNet/tree/datafile) .Use command to download `data` file:
+- first of all, clone `datafile branch` [here](https://github.com/trekrollercoaster/RippleNet/tree/datafile) .Use command to download `data` file:
     ```
     $ git clone -b datafile https://github.com/trekrollercoaster/RippleNet.git
     ```
