@@ -25,8 +25,7 @@ pip install -r requirements.txt
 ```
 ## Data
 
-- Download the data file:
-- Unzip it and put the data folder in the project root, your folder structure should look like the following
+Unzip the `data.zip` file to the project root and your folder structure should look like the following (note that `/data` folder is gitignored):
 
 ```
 .
@@ -72,7 +71,7 @@ pip install -r requirements.txt
 
 ## Run
 
-for the movie dataset (for the book dataset, replace movie with book):
+for the movie dataset (for the book dataset, replace movie with book in the commands):
 
 - run `python preprocess.py --dataset movie` - this will generate two new files `kg_final.txt` and `ratings_final.txt`
 - run `python main.py --dataset movie` - this will start the training, create a `logs` folder, and do a final evaluation
